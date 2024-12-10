@@ -33,7 +33,7 @@ while running:
         lidar.position = position
         sensor_data = lidar.detect_obstacle()
         environment.process_raw_data(sensor_data)
-        environment.show_sensor_data()
+        environment.show_sensor_data(WHITE)
 
     # Displaying the infomap on main map
     environment.map.blit(environment.infomap, (0,0))

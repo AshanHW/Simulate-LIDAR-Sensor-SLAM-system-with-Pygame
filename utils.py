@@ -1,4 +1,5 @@
 import math
+import random
 import numpy as np
 from fractions import Fraction
 
@@ -53,6 +54,9 @@ def general_to_slope(params):
 
 # returs generarl line form from slop and intersection
 def slope_to_general(m, c):
+    if m is None:
+        return (1, 0, -c)
+    
     slope = Fraction(m).limit_denominator()
     numerator = slope.numerator
     denominator = slope.denominator
@@ -65,6 +69,9 @@ def general_lines_intersect(params1, params2):
     a1, b1, c1 = params1
     a2, b2, c2 = params2
 
+    if -b1/a1 == -b2/a2:
+        return False
+
     x = (b2*c1 - b1*c2) / (a2*b1 - a1*b2)
     y = (a1*c2 - a2*c1) / (a2*b1 - a1*b2)
 
@@ -74,7 +81,7 @@ def general_lines_intersect(params1, params2):
 # return line's slope and intersection going through two given points
 def points_2line(point1, point2):
     if point1[0] == point2[0]: # vertical line. Slope is undefined
-        pass # TODO: Compatibility
+        return None, -point1[0]
     else:
         m = point1[1] - point2[1] / (point1[0] - point2[0])
         c = point1[1] - m * point1[0]
@@ -83,16 +90,23 @@ def points_2line(point1, point2):
 
 # return coordinates of a orthogonal projection of a point onto a line
 def projection_point(point, m, c):
-    x = ( point[0] + point[1] * m - c * m) / (1+m**2)
-    y = m * x + c
+    if m is None:
+        x = c
+        y = point[1]
+    
+    else:
+        x = ( point[0] + point[1] * m - c * m) / (1+m**2)
+        y = m * x + c
 
     return (x,y)
 
 
 # return y value from a given slope intersection and x coord
-def get_y(m, c, x):
+def get_y(params, x):
+    m, c = params
     return m*x + c
 
 
-
+def random_colour():
+    return (random.randint(10, 200), random.randint(10, 200), random.randint(10, 200))
 

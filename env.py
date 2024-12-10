@@ -22,6 +22,10 @@ class Environment:
         self.map.blit(self.externalMap, (0,0)) # Overlay the external map on main map
 
         self.infomap = None # To show the sensor data
+        
+        # To show sensor data
+        self.featuremap = pygame.Surface((self.mapW, self.mapH), pygame.SRCALPHA)
+        self.featuremap.fill((0, 0, 0, 0))
 
 
     def process_raw_data(self, sensor_data):
@@ -38,10 +42,25 @@ class Environment:
                 if point not in self.pointCloud:
                     self.pointCloud.append(point)
 
-    def show_sensor_data(self):
-        self.infomap = self.map.copy()
+    def show_sensor_data(self, color):
 
         # Place detected points on infomap
         for point in self.pointCloud:
-            self.infomap.set_at( (int(point[0]), int(point[1])), RED )
+            self.infomap.set_at( (int(point[0]), int(point[1])), color )
 
+    def show_cluster_data(self, labels, clusters):
+
+        self.colour_Map =  {}
+        for label in clusters:
+            if label == -1:
+                self.colour_Map[label] = RED
+            else:
+                self.colour_Map[label] = random_colour()
+        
+
+        for i, point in enumerate(self.pointCloud):
+
+            label = labels[i]
+            colour  = self.colour_Map[label]
+
+            self.featuremap.set_at((int(point[0]), int(point[1])), colour)

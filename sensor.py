@@ -17,7 +17,7 @@ class LidarSensor:
         self.W, self.H = pygame.display.get_surface().get_size() # map dims
 
 
-    def detect_obstacle(self, angle_rate = ANGLE_RATE, sample_rate = SAMPLE_RATE):
+    def detect_obstacle(self, detection_color, angle_rate = ANGLE_RATE, sample_rate = SAMPLE_RATE ):
         data = []
 
         x1, y1 = self.position[0], self.position[1]
@@ -39,7 +39,7 @@ class LidarSensor:
                 if 0<x<self.W and 0<y<self.H: # within the map
                     colour = self.map.get_at((x,y)) # get the colour of the sample point
                     
-                    if (colour[0], colour[1], colour[2]) == BLACK: # Black is set as a color of an obstacle. Change accordingly
+                    if (colour[0], colour[1], colour[2]) == detection_color: # set as a color of an obstacle. Change accordingly
     
                         distance = euclidean_distance((self.position), (x,y))
 
