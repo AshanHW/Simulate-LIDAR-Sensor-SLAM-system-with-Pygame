@@ -8,7 +8,7 @@ Welcome to my project where I've simulate a lidar sensor with pygame. This proje
 * RUN `python run_dbscan.py` to simulate the sensor and feature extraction.
 
 ### Workflow
-![workflow](assests_readme/workflow.gif)
+![workflow](asset_readme/workflow.gif)
 
 ## Sensor Implementation
 
@@ -32,12 +32,12 @@ The detected points are visualized as white pixels.
 
 However, there is an issue with this method. It can skip over the obstacle.
 
-![interpolation issue](assests_readme/interpolation.png)
+![interpolation issue](asset_readme/interpolation.png)
 
 ## Map
 
 For simplicity, the map has a white background and black walls (obstacles). The sensor detects the black pixels. You can modify the map as needed.
-Refer to `assests_readme/map3.png`.
+Refer to `asset_readme/map3.png`.
 
 ## Feature Extraction
 
